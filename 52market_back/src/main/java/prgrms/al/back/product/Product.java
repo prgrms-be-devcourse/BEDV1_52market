@@ -1,10 +1,10 @@
-package prgrms.al.back.post;
+package prgrms.al.back.product;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name = "post")
-public class Post {
+@Entity(name = "product")
+public class Product {
     @Id
     private Long id;
 }
