@@ -9,7 +9,7 @@ import prgrms.al.back.user.service.UserServiceImpl;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/Users")
+@RequestMapping("/api/Users")
 public class UserController {
 
     private UserServiceImpl service;
