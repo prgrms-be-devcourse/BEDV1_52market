@@ -1,8 +1,8 @@
 package prgrms.al.back.user.domain;
 
 import lombok.*;
-import prgrms.al.back.attention.Attention;
-import prgrms.al.back.product.Product;
+import prgrms.al.back.attention.domain.Attention;
+import prgrms.al.back.product.domain.Product;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,7 +29,7 @@ public class User {
     private String password;
 
     @Column(name = "location")
-    private String location;
+    private Location location;
 
     @Column(name = "manner_temperature")
     private double mannerTemperature;
@@ -38,12 +38,12 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToMany
-    private List<Attention> attentionList;
+    private List<Attention> attentions;
 
     @OneToMany
-    private List<Product> productList;
+    private List<Product> products;
 
-    public void updateInfo(String name, String nickName, String password, String location) {
+    public void updateInfo(String name, String nickName, String password, Location location) {
         this.name = (name != null) ? name : this.name;
         this.nickName = (nickName != null) ? nickName : this.nickName;
         this.password = (password != null) ? password : this.password;

@@ -1,6 +1,6 @@
 package prgrms.al.back.user.service;
 
-import prgrms.al.back.user.domain.UserDto;
+import prgrms.al.back.user.dto.UserDto;
 
 public interface UserService {
 

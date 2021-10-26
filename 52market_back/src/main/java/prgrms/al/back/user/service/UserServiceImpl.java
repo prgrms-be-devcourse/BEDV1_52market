@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import prgrms.al.back.user.convertor.UserConvertor;
 import prgrms.al.back.user.domain.User;
-import prgrms.al.back.user.domain.UserDto;
+import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.repository.UserRepository;
 
 @Service
