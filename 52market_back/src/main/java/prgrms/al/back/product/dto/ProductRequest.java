@@ -4,7 +4,7 @@ package prgrms.al.back.product.dto;
 import lombok.Builder;
 import lombok.Data;
 import prgrms.al.back.product.domain.Product;
-import prgrms.al.back.user.User;
+import prgrms.al.back.user.domain.User;
 
 @Builder
 @Data

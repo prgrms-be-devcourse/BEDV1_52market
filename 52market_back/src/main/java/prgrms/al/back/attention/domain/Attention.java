@@ -1,9 +1,9 @@
-package prgrms.al.back.attention;
+package prgrms.al.back.attention.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import prgrms.al.back.product.Product;
-import prgrms.al.back.user.User;
+import prgrms.al.back.product.domain.Product;
+import prgrms.al.back.user.domain.User;
 
 import javax.persistence.*;
 

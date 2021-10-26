@@ -1,9 +1,10 @@
-package prgrms.al.back.attention;
+package prgrms.al.back.attention.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import prgrms.al.back.product.Product;
-import prgrms.al.back.user.User;
+import prgrms.al.back.attention.domain.Attention;
+import prgrms.al.back.product.domain.Product;
+import prgrms.al.back.user.domain.User;
 
 @Getter
 public class AttentionSaveRequestDto {

@@ -11,8 +11,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import prgrms.al.back.product.dto.ProductRequest;
 import prgrms.al.back.product.repository.ProductRepository;
 import prgrms.al.back.product.service.ProductService;
-import prgrms.al.back.user.User;
-import prgrms.al.back.user.UserRepository;
+import prgrms.al.back.user.domain.User;
+import prgrms.al.back.user.repository.UserRepository;
 
 @SpringBootTest
 class ProductServiceTest {
@@ -35,7 +35,9 @@ class ProductServiceTest {
     void createProduct() {
         // TODO: 2021/10/26 어떻게 검증해야 할까요??
 
-        when(userRepository.findByNickName("tester")).thenReturn((Optional.of(new User("tester"))));
+        when(userRepository.findByNickName("tester")).thenReturn((Optional.of(User.builder()
+                .nickName("tester")
+                .build())));
 
         ProductRequest productRequest = ProductRequest.builder()
             .title("맥북 팝니다.")

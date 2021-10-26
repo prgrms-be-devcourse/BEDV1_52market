@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import prgrms.al.back.user.domain.UserDto;
-import prgrms.al.back.user.repository.UserRepository;
+import prgrms.al.back.user.domain.Location;
+import prgrms.al.back.user.dto.UserDto;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -26,7 +26,7 @@ class UserServiceImplTest {
                 .name("Sangsun")
                 .nickName("soon")
                 .password("testpass")
-                .location("Incheon")
+                .location(new Location("incheon"))
                 .build();
     }
 

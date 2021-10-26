@@ -14,7 +14,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import prgrms.al.back.user.User;
+import prgrms.al.back.user.domain.Location;
+import prgrms.al.back.user.domain.User;
 
 @Entity(name = "product")
 @Getter

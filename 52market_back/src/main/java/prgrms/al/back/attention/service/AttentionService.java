@@ -1,11 +1,13 @@
-package prgrms.al.back.attention;
+package prgrms.al.back.attention.service;
 
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import prgrms.al.back.product.Product;
-import prgrms.al.back.user.User;
+import prgrms.al.back.attention.domain.Attention;
+import prgrms.al.back.attention.dto.AttentionSaveRequestDto;
+import prgrms.al.back.attention.repository.AttentionRepository;
+import prgrms.al.back.product.domain.Product;
+
 import java.util.List;
 
 @Service
@@ -38,9 +40,9 @@ public class AttentionService {
             return attentionId;
     }
 
-    @Transactional
-    public List<Product> getAttentionProducts(Long userId){
-        return attentionRepository.findAttentionProducts(userId);
-    }
+    //@Transactional
+    //public List<Product> getAttentionProducts(Long userId){
+//        return attentionRepository.findAttentionProducts(userId);
+//    }
 
 }

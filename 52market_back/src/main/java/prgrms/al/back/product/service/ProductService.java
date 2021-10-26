@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import prgrms.al.back.product.domain.Product;
 import prgrms.al.back.product.dto.ProductRequest;
 import prgrms.al.back.product.repository.ProductRepository;
-import prgrms.al.back.user.User;
-import prgrms.al.back.user.UserRepository;
+import prgrms.al.back.user.domain.User;
+import prgrms.al.back.user.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor

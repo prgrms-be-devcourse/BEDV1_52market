@@ -2,7 +2,7 @@ package prgrms.al.back.user.convertor;
 
 import org.springframework.stereotype.Component;
 import prgrms.al.back.user.domain.User;
-import prgrms.al.back.user.domain.UserDto;
+import prgrms.al.back.user.dto.UserDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,8 +18,8 @@ public class UserConvertor {
                 .location(user.getLocation())
                 .mannerTemperature(user.getMannerTemperature())
                 .createdAt(user.getCreatedAt())
-                .attentionList(new ArrayList<>())
-                .productList(new ArrayList<>())
+                .attentions(new ArrayList<>())
+                .products(new ArrayList<>())
                 .build();
     }
 
@@ -31,8 +31,8 @@ public class UserConvertor {
                 .location(userDto.getLocation())
                 .mannerTemperature(36.5)
                 .createdAt(LocalDateTime.now())
-                .attentionList(new ArrayList<>())
-                .productList(new ArrayList<>())
+                .attentions(new ArrayList<>())
+                .products(new ArrayList<>())
                 .build();
     }
 }

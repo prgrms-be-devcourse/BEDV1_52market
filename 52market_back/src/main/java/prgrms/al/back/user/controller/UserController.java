@@ -4,7 +4,7 @@ import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import prgrms.al.back.user.domain.UserDto;
+import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.service.UserServiceImpl;
 
 @RestController
@@ -29,7 +29,7 @@ public class UserController {
         return ResponseEntity.ok(service.createUser(userDto));
     }
 
-    @PostMapping("/{id")
+    @PostMapping("/{id}")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto){
         return ResponseEntity.ok(service.updatedUser(userDto));
     }

@@ -1,9 +1,10 @@
-package prgrms.al.back.user.domain;
+package prgrms.al.back.user.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import prgrms.al.back.attention.Attention;
-import prgrms.al.back.product.Product;
+import prgrms.al.back.attention.domain.Attention;
+import prgrms.al.back.user.domain.Location;
+import prgrms.al.back.product.domain.Product;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,13 +21,13 @@ public class UserDto {
 
     private String password;
 
-    private String location;
+    private Location location;
 
     private double mannerTemperature;
 
     private LocalDateTime createdAt;
 
-    private List<Attention> attentionList;
+    private List<Attention> attentions;
 
-    private List<Product> productList;
+    private List<Product> products;
 }
