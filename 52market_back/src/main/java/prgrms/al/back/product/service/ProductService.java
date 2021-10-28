@@ -1,16 +1,18 @@
 package prgrms.al.back.product.service;
 
+import static java.util.stream.Collectors.*;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.domain.Product;
+import prgrms.al.back.product.dto.LocationResponse;
 import prgrms.al.back.product.dto.ProductRequest;
 import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.product.repository.ProductRepository;
-import prgrms.al.back.user.domain.Location;
 import prgrms.al.back.user.domain.User;
-import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.repository.UserRepository;
 
 @Service
@@ -32,7 +34,16 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public List<ProductSearchResponse> findProducts(UserDto userDto) {
-        return null;
+    public List<ProductSearchResponse> findProductsByLocation(Location location) {
+        List<Product> products = productRepository.findByLocation(location);
+        return products.stream()
+            .map(product -> ProductSearchResponse.builder()
+                .title(product.getTitle())
+                .price(product.getPrice())
+                .location(new LocationResponse(product.getLocation().getName()))
+                .totalAttention(product.getTotalAttention())
+                .build())
+            .collect(toList());
+
     }
 }

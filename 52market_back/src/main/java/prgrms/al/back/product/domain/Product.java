@@ -2,7 +2,6 @@ package prgrms.al.back.product.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import prgrms.al.back.user.domain.Location;
+import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.user.domain.User;
 
 @Entity(name = "product")
@@ -36,7 +35,8 @@ public class Product {
     @JoinColumn(name = "user_id")
     private User createdBy;
 
-    @Embedded
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id")
     private Location location;
 
     @Builder
@@ -51,5 +51,9 @@ public class Product {
     public void setOwner(User user) {
         createdBy = user;
         user.getProducts().add(this);
+    }
+
+    public int getTotalAttention() {
+        return 0;
     }
 }
