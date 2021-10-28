@@ -2,6 +2,7 @@ package prgrms.al.back.user.domain;
 
 import lombok.*;
 import prgrms.al.back.attention.domain.Attention;
+import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.domain.Product;
 
 import javax.persistence.*;
@@ -28,7 +29,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "location")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Location location;
 
     @Column(name = "manner_temperature")

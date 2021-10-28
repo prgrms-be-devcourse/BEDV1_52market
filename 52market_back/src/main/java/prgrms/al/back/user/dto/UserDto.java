@@ -3,7 +3,7 @@ package prgrms.al.back.user.dto;
 import lombok.Builder;
 import lombok.Getter;
 import prgrms.al.back.attention.domain.Attention;
-import prgrms.al.back.user.domain.Location;
+import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.domain.Product;
 
 import java.time.LocalDateTime;
