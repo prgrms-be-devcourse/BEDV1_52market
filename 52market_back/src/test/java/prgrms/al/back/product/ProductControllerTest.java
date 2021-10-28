@@ -1,6 +1,7 @@
 package prgrms.al.back.product;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
@@ -11,6 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,8 +27,13 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import prgrms.al.back.location.domain.Location;
+import prgrms.al.back.location.service.LocationService;
 import prgrms.al.back.product.controller.ProductController;
+import prgrms.al.back.product.dto.LocationResponse;
 import prgrms.al.back.product.dto.ProductRequest;
+import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.product.service.ProductService;
 
 @ExtendWith(RestDocumentationExtension.class)
@@ -37,6 +45,9 @@ class ProductControllerTest {
     @MockBean
     ProductService productService;
 
+    @MockBean
+    LocationService locationService;
+
     @Autowired
     ObjectMapper objectMapper;
 
@@ -44,6 +55,7 @@ class ProductControllerTest {
     void setUp(WebApplicationContext webApplicationContext,
         RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+            .addFilters(new CharacterEncodingFilter("UTF-8", true))
             .apply(documentationConfiguration(restDocumentation))
             .build();
     }
@@ -55,8 +67,6 @@ class ProductControllerTest {
     @Test
     @DisplayName("상품을 성공적으로 등록할 경우 HTTP 상태코드 200을 반환한다.")
     void createProduct() throws Exception {
-
-
 
         ProductRequest productRequest = ProductRequest.builder()
             .title("맥북 팔아요")
@@ -70,6 +80,32 @@ class ProductControllerTest {
                 .content(toJsonString(productRequest)))
             .andDo(print())
             .andExpect(status().isOk());
+    }
 
+    @Test
+    @DisplayName("상품을 지역으로 조회할 경우 해당 데이터와 HTTP 상태코드 200을 반환한다")
+    void findProductsByLocation() throws Exception {
+        Location location = new Location("이문동", 20.0, 10.0);
+        given(locationService.findByName(any())).willReturn(
+            Optional.of(location));
+
+        given(productService.findProductsByLocation(any())).willReturn(
+            Arrays.asList(
+                ProductSearchResponse.builder()
+                    .title("test 1")
+                    .price(10000L)
+                    .location(new LocationResponse(location.getName()))
+                    .build(),
+                ProductSearchResponse.builder()
+                    .title("test 2")
+                    .price(20000L)
+                    .location(new LocationResponse(location.getName()))
+                    .build()
+            )
+        );
+
+        mockMvc.perform(get("/api/products?location=이문동"))
+            .andDo(print())
+            .andExpect(status().isOk());
     }
 }
