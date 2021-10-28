@@ -12,8 +12,6 @@ import java.util.List;
 
 @Repository
 public interface AttentionRepository extends JpaRepository<Attention, Long> {
-    @Override
-    Optional<Attention> findById(Long attentionId);
 
     //@Query("SELECT p FROM attention as a JOIN a.product as p WHERE a.user.user_id=:user_id")
     //List<Product> findAttentionProducts(@Param("user_id") Long userId);
