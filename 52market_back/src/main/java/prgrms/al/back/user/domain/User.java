@@ -2,9 +2,12 @@ package prgrms.al.back.user.domain;
 
 import lombok.*;
 import prgrms.al.back.attention.domain.Attention;
+import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.domain.Product;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,17 +22,20 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "name", unique = true)
+    @NotBlank
+    @Pattern(regexp = "([A-Za-z0-9]){4,20}")
+    @Column(name = "name", updatable = false, length = 50)
     private String name;
 
-    @Column(name = "nick_name", unique = true)
+    @NotBlank
+    @Pattern(regexp = "^(?!.*\\.\\.)(?!.*\\.$)[^\\W][\\w.]{4,20}")
+    @Column(name = "nick_name", unique = true, length = 15)
     private String nickName;
 
-    @Column(name = "password")
+    @NotBlank
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}")
+    @Column(name = "password", length = 20)
     private String password;
-
-    @Column(name = "location")
-    private Location location;
 
     @Column(name = "manner_temperature")
     private double mannerTemperature;
@@ -43,10 +49,17 @@ public class User {
     @OneToMany
     private List<Product> products;
 
+    @ManyToOne
+    private Location location;
+
     public void updateInfo(String name, String nickName, String password, Location location) {
         this.name = (name != null) ? name : this.name;
         this.nickName = (nickName != null) ? nickName : this.nickName;
         this.password = (password != null) ? password : this.password;
+        this.location = (location != null) ? location : this.location;
+    }
+
+    public void updateLocationInfo(Location location){
         this.location = (location != null) ? location : this.location;
     }
 }
