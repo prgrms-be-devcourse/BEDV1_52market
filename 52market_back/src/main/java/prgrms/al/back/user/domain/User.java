@@ -43,10 +43,10 @@ public class User {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Attention> attentions;
 
-    @OneToMany
+    @OneToMany(mappedBy = "createdBy")
     private List<Product> products;
 
     @ManyToOne
