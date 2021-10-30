@@ -1,15 +1,18 @@
 package prgrms.al.back.user.controller;
 
 import javassist.NotFoundException;
-import lombok.RequiredArgsConstructor;
+import javassist.bytecode.DuplicateMemberException;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.service.UserServiceImpl;
 
+import javax.validation.Valid;
+
 @RestController
-@RequiredArgsConstructor
-@RequestMapping("/api/Users")
+@AllArgsConstructor
+@RequestMapping("/api/users")
 public class UserController {
 
     private UserServiceImpl service;
@@ -25,12 +28,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> createUser(final @RequestBody @Valid UserDto userDto) throws DuplicateMemberException {
         return ResponseEntity.ok(service.createUser(userDto));
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody @Valid UserDto userDto){
         return ResponseEntity.ok(service.updatedUser(userDto));
     }
 }
