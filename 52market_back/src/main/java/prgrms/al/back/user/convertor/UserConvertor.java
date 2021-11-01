@@ -18,8 +18,8 @@ public class UserConvertor {
                 .location(user.getLocation().getName())
                 .mannerTemperature(user.getMannerTemperature())
                 .createdAt(user.getCreatedAt())
-                .attentions(new ArrayList<>())
-                .products(new ArrayList<>())
+                .attentions(user.getAttentions())
+                .products(user.getProducts())
                 .build();
     }
 
@@ -28,10 +28,6 @@ public class UserConvertor {
                 .name(userDto.getName())
                 .nickName(userDto.getNickName())
                 .password(userDto.getPassword())
-                .mannerTemperature(36.5)
-                .createdAt(LocalDateTime.now())
-                .attentions(new ArrayList<>())
-                .products(new ArrayList<>())
                 .build();
     }
 }

@@ -12,8 +12,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import lombok.*;
+import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.dto.ProductSearchResponse;
-import prgrms.al.back.user.domain.Location;
 import prgrms.al.back.user.domain.User;
 
 @Entity(name = "product")
@@ -37,7 +37,7 @@ public class Product {
     @JoinColumn(name = "user_id")
     private User createdBy;
 
-    @Embedded
+    @ManyToOne
     private Location location;
 
     @Column(name = "total_attention")

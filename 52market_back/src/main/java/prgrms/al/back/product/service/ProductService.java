@@ -10,7 +10,6 @@ import prgrms.al.back.product.domain.Product;
 import prgrms.al.back.product.dto.ProductRequest;
 import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.product.repository.ProductRepository;
-import prgrms.al.back.user.domain.Location;
 import prgrms.al.back.user.domain.User;
 import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.repository.UserRepository;

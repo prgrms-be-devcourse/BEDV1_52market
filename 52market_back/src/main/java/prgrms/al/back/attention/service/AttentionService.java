@@ -1,5 +1,6 @@
 package prgrms.al.back.attention.service;
 
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class AttentionService {
     private final UserConvertor userConvertor;
     private final ProductConvertor productConvertor;
 
-    public Long save(AttentionSaveRequestDto attentionSaveRequestDto) {
+    public Long save(AttentionSaveRequestDto attentionSaveRequestDto) throws NotFoundException {
         User user = userConvertor.of(userService.findById(attentionSaveRequestDto.getUserId()));
         Product product = productConvertor.of(productService.findById(attentionSaveRequestDto.getProductId()));
         productService.attentionPP(product); //attention ++

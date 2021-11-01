@@ -1,5 +1,6 @@
 package prgrms.al.back.attention.controller;
 
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class AttentionController {
     private AttentionService attentionService;
 
     @PostMapping
-    public ResponseEntity<Long> save(@RequestBody AttentionSaveRequestDto attentionSaveRequestDto) {
+    public ResponseEntity<Long> save(@RequestBody AttentionSaveRequestDto attentionSaveRequestDto) throws NotFoundException {
         return ResponseEntity.ok(attentionService.save(attentionSaveRequestDto));
     }
 

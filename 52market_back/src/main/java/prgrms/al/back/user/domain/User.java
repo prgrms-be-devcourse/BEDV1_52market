@@ -9,10 +9,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Builder
 @Entity(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,13 +44,23 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")
-    private List<Attention> attentions;
+    private List<Attention> attentions = new ArrayList<>();
 
     @OneToMany(mappedBy = "createdBy")
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     @ManyToOne
     private Location location;
+
+    @Builder
+    public User(String name, String nickName, String password, Location location) {
+        this.name = name;
+        this.nickName = nickName;
+        this.password = password;
+        this.location = location;
+        this.mannerTemperature = 36.5;
+        this.createdAt = LocalDateTime.now();
+    }
 
     public void updateInfo(String name, String nickName, String password, Location location) {
         this.name = (name != null) ? name : this.name;
@@ -59,7 +69,7 @@ public class User {
         this.location = (location != null) ? location : this.location;
     }
 
-    public void updateLocationInfo(Location location){
+    public void updateLocationInfo(Location location) {
         this.location = (location != null) ? location : this.location;
     }
 }
