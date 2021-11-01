@@ -6,9 +6,9 @@ import prgrms.al.back.user.domain.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long>{
-    Optional<User> findByNickName(String nickName);
+    Optional<User> findByNickname(String nickname);
 
     boolean existsByName(String name);
 
-    boolean existsByNickName(String nickName);
+    boolean existsByNickname(String nickname);
 }

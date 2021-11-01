@@ -22,7 +22,7 @@ public class UserDto {
 
     @NotBlank
     @Pattern(regexp = "^(?!.*\\.\\.)(?!.*\\.$)[^\\W][\\w.]{4,20}")
-    private String nickName;
+    private String nickname;
 
     @NotBlank
     @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}")

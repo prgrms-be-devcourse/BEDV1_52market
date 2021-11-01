@@ -4,16 +4,13 @@ import org.springframework.stereotype.Component;
 import prgrms.al.back.user.domain.User;
 import prgrms.al.back.user.dto.UserDto;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 @Component
 public class UserConvertor {
     public UserDto toDto(User user) {
         return UserDto.builder()
-                .userId(user.getUserId())
+                .userId(user.getId())
                 .name(user.getName())
-                .nickName(user.getNickName())
+                .nickname(user.getNickname())
                 .password(user.getPassword())
                 .location(user.getLocation().getName())
                 .mannerTemperature(user.getMannerTemperature())
@@ -26,7 +23,7 @@ public class UserConvertor {
     public User of(UserDto userDto) {
         return User.builder()
                 .name(userDto.getName())
-                .nickName(userDto.getNickName())
+                .nickname(userDto.getNickname())
                 .password(userDto.getPassword())
                 .build();
     }

@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,25 +37,20 @@ class ProductServiceTest {
     @Autowired
     ProductService productService;
 
-//    @BeforeEach
-//    void setUp() {
-//        productService = new ProductService(productRepository, userRepository, productConvertor);
-//    }
-
     @Test
     @DisplayName("상품을 잘 등록하는지")
     void createProduct() {
         // TODO: 2021/10/26 어떻게 검증해야 할까요??
         List<Product> list = new ArrayList<>();
-        when(userRepository.findByNickName("tester")).thenReturn((Optional.of(User.builder()
-                .nickName("tester")
+        when(userRepository.findByNickname("tester")).thenReturn((Optional.of(User.builder()
+                .nickname("tester")
                 .build())));
 
         ProductRequest productRequest = ProductRequest.builder()
                 .title("맥북 팝니다.")
                 .content("싸게 드려요, 연락주세요")
                 .price(1_000_000L)
-                .nickName("tester")
+                .nickname("tester")
                 .build();
 
         productService.createProduct(productRequest);

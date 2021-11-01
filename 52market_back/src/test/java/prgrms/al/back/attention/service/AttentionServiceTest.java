@@ -14,19 +14,15 @@ import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.location.domain.NearAreaStepOne;
 import prgrms.al.back.location.repository.LocationRepository;
 import prgrms.al.back.location.repository.NearAreaStepOneRepository;
-import prgrms.al.back.product.domain.Product;
 import prgrms.al.back.product.dto.ProductRequest;
 import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.product.repository.ProductRepository;
 import prgrms.al.back.product.service.ProductService;
-import prgrms.al.back.user.domain.User;
 import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.repository.UserRepository;
 import prgrms.al.back.user.service.UserService;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @Service
@@ -85,7 +81,7 @@ class AttentionServiceTest {
     public void test() throws NotFoundException, DuplicateMemberException {
         UserDto userDto = UserDto.builder()
                 .name("Sangsun")
-                .nickName("soon12")
+                .nickname("soon12")
                 .password("teSt13!@45")
                 .location("incheon")
                 .build();
@@ -96,13 +92,13 @@ class AttentionServiceTest {
                 .title("맥북 팝니다.")
                 .content("싸게 드려요, 연락주세요")
                 .price(1_000_000L)
-                .nickName("soon12")
+                .nickname("soon12")
                 .build();
 
 
         productService.createProduct(productRequest);
 
-        Long userId = userRepository.findByNickName(userDto.getNickName()).get().getUserId();
+        Long userId = userRepository.findByNickname(userDto.getNickname()).get().getId();
 //        Long userId = userRepository.findAll().get(0).getUserId();
         Long productId = productRepository.findAll().get(0).getId();
         System.out.println(productId);

@@ -62,7 +62,7 @@ class ProductControllerTest {
             .title("맥북 팔아요")
             .content("싼 가격에 팔겠습니다.")
             .price(1_000_000L)
-            .nickName("tester")
+            .nickname("tester")
             .build();
 
         mockMvc.perform(post("/api/products")

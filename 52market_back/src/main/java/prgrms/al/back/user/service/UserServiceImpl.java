@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService{
             throw new DuplicateMemberException(ErrorCode.NAME_DUPLICATION.toString());
         }
 
-        if (repository.existsByNickName(userDto.getNickName())){
+        if (repository.existsByNickname(userDto.getNickname())){
             throw new DuplicateMemberException(ErrorCode.NICKNAME_DUPLICATION.toString());
         }
 
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService{
         user.updateLocationInfo(locationService.findByName(userDto.getLocation()).get());
         repository.save(user);
 
-        return userConvertor.toDto(repository.findByNickName(userDto.getNickName()).get());
+        return userConvertor.toDto(repository.findByNickname(userDto.getNickname()).get());
     }
 
     @Transactional
@@ -54,8 +54,8 @@ public class UserServiceImpl implements UserService{
     public UserDto updatedUser(UserDto userDto) {
         User user = repository.findById(userDto.getUserId()).get();
         Location location = locationService.findByName(userDto.getLocation()).get();
-        user.updateInfo(userDto.getName(), userDto.getNickName(), userDto.getPassword(), location);
-        return userConvertor.toDto(repository.findById(user.getUserId()).get());
+        user.updateInfo(userDto.getName(), userDto.getNickname(), userDto.getPassword(), location);
+        return userConvertor.toDto(repository.findById(user.getId()).get());
     }
 
     @Transactional

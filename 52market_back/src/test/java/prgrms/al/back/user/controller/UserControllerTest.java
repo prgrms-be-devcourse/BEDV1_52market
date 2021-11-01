@@ -1,9 +1,6 @@
 package prgrms.al.back.user.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javassist.NotFoundException;
-import javassist.bytecode.DuplicateMemberException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,9 +19,6 @@ import prgrms.al.back.location.repository.NearAreaStepOneRepository;
 import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.service.UserService;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -82,7 +76,7 @@ class UserControllerTest {
         //given
         UserDto userDto = UserDto.builder()
                 .name("Sangsun")
-                .nickName("soon12")
+                .nickname("soon12")
                 .password("teSt13!@45")
                 .location("incheon")
                 .build();
@@ -127,7 +121,7 @@ class UserControllerTest {
         //given
         UserDto failUserDto = UserDto.builder()
                 .name("Sa")
-                .nickName("fai")
+                .nickname("fai")
                 .password("failpassword")
                 .location("incheon")
                 .build();

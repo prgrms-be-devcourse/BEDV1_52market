@@ -13,6 +13,6 @@ import java.util.List;
 @Repository
 public interface AttentionRepository extends JpaRepository<Attention, Long> {
 
-    @Query("SELECT product FROM attention as a WHERE a.user.userId=:userId")
+    @Query("SELECT product FROM attention as a WHERE a.user.id=:userId")
     List<Product> findAttentionProducts(@Param("userId") Long userId);
 }

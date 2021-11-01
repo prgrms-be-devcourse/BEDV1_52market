@@ -14,13 +14,13 @@ import java.util.List;
 
 @Getter
 @Entity(name = "user")
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Long id;
 
     @NotBlank
     @Pattern(regexp = "([A-Za-z0-9]){4,20}")
@@ -29,8 +29,8 @@ public class User {
 
     @NotBlank
     @Pattern(regexp = "^(?!.*\\.\\.)(?!.*\\.$)[^\\W][\\w.]{4,20}")
-    @Column(name = "nick_name", unique = true, length = 15)
-    private String nickName;
+    @Column(name = "nickname", unique = true, length = 15)
+    private String nickname;
 
     @NotBlank
     @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}")
@@ -53,9 +53,9 @@ public class User {
     private Location location;
 
     @Builder
-    public User(String name, String nickName, String password, Location location) {
+    public User(String name, String nickname, String password, Location location) {
         this.name = name;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.password = password;
         this.location = location;
         this.mannerTemperature = 36.5;
@@ -64,7 +64,7 @@ public class User {
 
     public void updateInfo(String name, String nickName, String password, Location location) {
         this.name = (name != null) ? name : this.name;
-        this.nickName = (nickName != null) ? nickName : this.nickName;
+        this.nickname = (nickName != null) ? nickName : this.nickname;
         this.password = (password != null) ? password : this.password;
         this.location = (location != null) ? location : this.location;
     }

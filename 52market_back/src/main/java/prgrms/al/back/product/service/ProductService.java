@@ -25,8 +25,8 @@ public class ProductService {
 
     public void createProduct(ProductRequest productRequest) {
 
-        String nickName = productRequest.getNickName();
-        User user = userRepository.findByNickName(nickName)
+        String nickName = productRequest.getNickname();
+        User user = userRepository.findByNickname(nickName)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
         Product product = productRequest.toEntity(user);
