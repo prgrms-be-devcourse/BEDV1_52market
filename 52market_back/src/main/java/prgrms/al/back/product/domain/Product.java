@@ -10,18 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.user.domain.Location;
 import prgrms.al.back.user.domain.User;
 
 @Entity(name = "product")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "product_id")
     private Long id;
 
@@ -39,17 +40,26 @@ public class Product {
     @Embedded
     private Location location;
 
+    @Column(name = "total_attention")
+    private int totalAttention;
+
     @Builder
-    public Product(String title, String content, Long price, Location location) {
+    public Product(String title, String content, Long price, Location location, int totalAttention) {
         this.title = title;
         this.content = content;
         this.price = price;
         this.location = location;
         this.createdAt = LocalDateTime.now();
+        this.totalAttention = totalAttention;
     }
 
     public void setOwner(User user) {
         createdBy = user;
         user.getProducts().add(this);
+    }
+
+    public int attentionPP(){
+        totalAttention +=1;
+        return totalAttention;
     }
 }

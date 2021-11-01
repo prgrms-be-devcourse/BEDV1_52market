@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import prgrms.al.back.product.convertor.ProductConvertor;
 import prgrms.al.back.product.dto.ProductRequest;
 import prgrms.al.back.product.repository.ProductRepository;
 import prgrms.al.back.product.service.ProductService;
@@ -23,11 +24,14 @@ class ProductServiceTest {
     @MockBean
     ProductRepository productRepository;
 
+    @MockBean
+    ProductConvertor productConvertor;
+
     ProductService productService;
 
     @BeforeEach
     void setUp() {
-        productService = new ProductService(productRepository, userRepository);
+        productService = new ProductService(productRepository, userRepository, productConvertor);
     }
 
     @Test
