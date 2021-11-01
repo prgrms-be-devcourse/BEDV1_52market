@@ -2,7 +2,7 @@ package prgrms.al.back.product.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import prgrms.al.back.user.domain.Location;
+import prgrms.al.back.location.domain.Location;
 
 @Getter
 @Builder

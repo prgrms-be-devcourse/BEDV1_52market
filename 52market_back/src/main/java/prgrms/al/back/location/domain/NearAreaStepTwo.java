@@ -1,11 +1,13 @@
 package prgrms.al.back.location.domain;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name = "near_area_step_Two")
+@Entity(name = "near_area_step_two")
+@Getter
 @NoArgsConstructor
 public class NearAreaStepTwo {
     @Id

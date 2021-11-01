@@ -13,7 +13,7 @@ public class ProductRequest {
     private String title;
     private String content;
     private Long price;
-    private String nickName;
+    private String nickname;
 
     public Product toEntity(User user) {
         Product product = Product.builder()

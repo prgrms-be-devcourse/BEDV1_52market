@@ -1,5 +1,6 @@
 package prgrms.al.back.location.domain;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,11 +9,11 @@ import javax.persistence.*;
 
 @Getter
 @Entity(name = "location")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Location {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "location_id")
-    private Long location_id;
+    private Long id;
 
     private String name;
 

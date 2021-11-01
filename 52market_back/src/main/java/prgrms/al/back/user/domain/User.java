@@ -9,18 +9,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Builder
 @Entity(name = "user")
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Long id;
 
     @NotBlank
     @Pattern(regexp = "([A-Za-z0-9]){4,20}")
@@ -29,8 +29,8 @@ public class User {
 
     @NotBlank
     @Pattern(regexp = "^(?!.*\\.\\.)(?!.*\\.$)[^\\W][\\w.]{4,20}")
-    @Column(name = "nick_name", unique = true, length = 15)
-    private String nickName;
+    @Column(name = "nickname", unique = true, length = 15)
+    private String nickname;
 
     @NotBlank
     @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}")
@@ -44,22 +44,32 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")
-    private List<Attention> attentions;
+    private List<Attention> attentions = new ArrayList<>();
 
     @OneToMany(mappedBy = "createdBy")
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     @ManyToOne
     private Location location;
 
+    @Builder
+    public User(String name, String nickname, String password, Location location) {
+        this.name = name;
+        this.nickname = nickname;
+        this.password = password;
+        this.location = location;
+        this.mannerTemperature = 36.5;
+        this.createdAt = LocalDateTime.now();
+    }
+
     public void updateInfo(String name, String nickName, String password, Location location) {
         this.name = (name != null) ? name : this.name;
-        this.nickName = (nickName != null) ? nickName : this.nickName;
+        this.nickname = (nickName != null) ? nickName : this.nickname;
         this.password = (password != null) ? password : this.password;
         this.location = (location != null) ? location : this.location;
     }
 
-    public void updateLocationInfo(Location location){
+    public void updateLocationInfo(Location location) {
         this.location = (location != null) ? location : this.location;
     }
 }

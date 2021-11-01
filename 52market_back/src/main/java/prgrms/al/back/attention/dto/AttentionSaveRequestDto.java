@@ -18,8 +18,6 @@ public class AttentionSaveRequestDto {
     }
 
     public Attention toEntity(User user, Product product){
-        // userService를 통해 userId에 해당하는 user를 조회해서 넘겨준다.
-        // productService를 통해 product에 해당하는 product를 조회해서 넘겨준다.
         return Attention.builder()
                 .user(user)
                 .product(product)

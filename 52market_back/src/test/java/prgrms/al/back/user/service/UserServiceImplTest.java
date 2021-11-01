@@ -14,8 +14,6 @@ import prgrms.al.back.location.repository.LocationRepository;
 import prgrms.al.back.location.repository.NearAreaStepOneRepository;
 import prgrms.al.back.user.dto.UserDto;
 
-import javax.validation.ConstraintViolationException;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -39,7 +37,7 @@ class UserServiceImplTest {
     public void setTest(){
         userDto = UserDto.builder()
                 .name("Sangsun")
-                .nickName("soon12")
+                .nickname("soon12")
                 .password("teSt13!@45")
                 .location("incheon")
                 .build();
@@ -77,7 +75,7 @@ class UserServiceImplTest {
         UserDto findEntity = service.findById(createdUserDto.getUserId());
 
         //then
-        assertThat(findEntity.getNickName(), is(createdUserDto.getNickName()));
+        assertThat(findEntity.getNickname(), is(createdUserDto.getNickname()));
     }
 
     @Test
@@ -86,7 +84,7 @@ class UserServiceImplTest {
         //given
         UserDto failUserDto = UserDto.builder()
                 .name("Sa")
-                .nickName("fai")
+                .nickname("fai")
                 .password("failpassword")
                 .location("incheon")
                 .build();
@@ -106,7 +104,7 @@ class UserServiceImplTest {
         UserDto forUpdateDto = UserDto.builder()
                 .userId(createdUserDto.getUserId())
                 .name("update")
-                .nickName("updated")
+                .nickname("updated")
                 .build();
 
         //when
@@ -115,7 +113,7 @@ class UserServiceImplTest {
         //then
         assertAll(
                 () -> assertThat(updatedDto.getName(), is(forUpdateDto.getName())),
-                () -> assertThat(updatedDto.getNickName(), is(forUpdateDto.getNickName())),
+                () -> assertThat(updatedDto.getNickname(), is(forUpdateDto.getNickname())),
                 () -> assertThat(updatedDto.getLocation(), is("Incheon"))
         );
     }
