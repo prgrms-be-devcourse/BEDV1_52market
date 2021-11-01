@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import prgrms.al.back.attention.dto.AttentionSaveRequestDto;
 import prgrms.al.back.attention.service.AttentionService;
 import prgrms.al.back.product.dto.ProductRequest;
+import prgrms.al.back.product.dto.ProductSearchResponse;
+
 import java.util.List;
 
 @RestController
@@ -25,6 +27,8 @@ public class AttentionController {
         return ResponseEntity.ok(attentionService.delete(attentionId));
     }
 
-//    @GetMapping("/user/{id}")
-//    public ResponseEntity<List<ProductRequest>>
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<ProductSearchResponse>> findProductsByUserId(@PathVariable Long userId){
+        return ResponseEntity.ok(attentionService.getAttentionProducts(userId));
+    }
 }

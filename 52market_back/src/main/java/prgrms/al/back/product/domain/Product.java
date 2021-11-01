@@ -58,8 +58,8 @@ public class Product {
         user.getProducts().add(this);
     }
 
-    public int attentionPP(){
-        totalAttention +=1;
+    public int attentionPP() {
+        totalAttention += 1;
         return totalAttention;
     }
 }
