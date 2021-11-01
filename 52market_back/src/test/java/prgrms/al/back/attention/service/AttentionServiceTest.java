@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import prgrms.al.back.attention.domain.Attention;
 import prgrms.al.back.attention.dto.AttentionSaveRequestDto;
+import prgrms.al.back.attention.repository.AttentionRepository;
 import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.location.domain.NearAreaStepOne;
 import prgrms.al.back.location.repository.LocationRepository;
@@ -49,6 +51,9 @@ class AttentionServiceTest {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    AttentionRepository attentionRepository;
 
     @BeforeEach
     @Transactional
@@ -99,38 +104,25 @@ class AttentionServiceTest {
         productService.createProduct(productRequest);
 
         Long userId = userRepository.findByNickname(userDto.getNickname()).get().getId();
-//        Long userId = userRepository.findAll().get(0).getUserId();
         Long productId = productRepository.findAll().get(0).getId();
         System.out.println(productId);
-//
-//
-//        Product product = Product.builder()
-//                .title("오징어 팝니다")
-//                .content("100만원 연락주세요")
-//                .price(1_000_000L)
-//                .location(Location.builder()
-//                        .name("incheon")
-//                        .n(12.0)
-//                        .e(24.0)
-//                        .build()
-//                )
-//                .totalAttention(0)
-//                .build();
-//
-//        product.setOwner(user);
-//        product.setCreatedBy(us
-//
-//        er);
-//        productRepository.save(product);
-//
 
 
         attentionService.save(AttentionSaveRequestDto.builder()
                 .productId(productId)
                 .userId(userId)
                 .build());
-// 수정 해야할것
-        List<ProductSearchResponse> attentionProducts = attentionService.getAttentionProducts(userId);
-        System.out.println(attentionProducts.get(0).getTitle());
+
+
+        System.out.println(productService.findById(productId).getTotalAttention());
+
+        //Attention attention = attentionRepository.findById(1L).get();
+        //System.out.println(attention.getProduct().getTitle());
+        //attentionRepository.findAll();
+        //List<Attention> list = attentionRepository.findAll();
+        //System.out.println(list.get(0).getProduct().getTitle());
+        // 수정 해야할것
+        //List<ProductSearchResponse> attentionProducts = attentionService.getAttentionProducts(userId);
+        //System.out.println(attentionProducts.get(0).getTitle());
     }
 }
