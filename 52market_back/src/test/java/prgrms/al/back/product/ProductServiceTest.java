@@ -1,8 +1,10 @@
 package prgrms.al.back.product;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
@@ -10,9 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.convertor.ProductConvertor;
 import prgrms.al.back.product.domain.Product;
 import prgrms.al.back.product.dto.ProductRequest;
+import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.product.repository.ProductRepository;
 import prgrms.al.back.product.service.ProductService;
 import prgrms.al.back.user.domain.User;
@@ -54,5 +58,24 @@ class ProductServiceTest {
                 .build();
 
         productService.createProduct(productRequest);
+    }
+
+    @Test
+    @DisplayName("Location을 기준으로 상품을 쿼리한다.")
+    void findProductsByLocation() {
+        // given
+        Location imun = new Location("이문동", 120.0, 130.0);
+        Product product1 = new Product("상품1", "상품1 팝니다~~", 1_000_000L, imun);
+        Product product2 = new Product("상품2", "상품2 팝니다~~", 2_000_000L, imun);
+        Product product3 = new Product("상품3", "상품3 팝니다~~", 3_000_000L, imun);
+
+        when(productRepository.findByLocation(imun)).thenReturn(
+            Arrays.asList(product1, product2, product3));
+
+        // when
+        List<ProductSearchResponse> result = productService.findByLocation(imun);
+
+        // then
+        assertThat(result.size()).isEqualTo(3);
     }
 }
