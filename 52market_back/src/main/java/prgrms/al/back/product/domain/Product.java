@@ -34,6 +34,14 @@ public class Product {
     @Column(name = "total_attention")
     private int totalAttention;
 
+
+    public Product(String title, String content, Long price, Location location) {
+        this.title = title;
+        this.content = content;
+        this.price = price;
+        this.location = location;
+    }
+
     @Builder
     public Product(String title, String content, Long price, Location location, int totalAttention) {
         this.title = title;
