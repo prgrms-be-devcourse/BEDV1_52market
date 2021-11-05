@@ -24,7 +24,8 @@ public class Image {
     private Product product;
 
     @Builder
-    public Image(String url){
+    public Image(String url, Product product){
+        this.product = product;
         this.url = url;
     }
 }
