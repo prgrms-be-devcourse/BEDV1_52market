@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 public class UserDto {
 
-    private Long userId;
+    private Long id;
 
     @NotBlank
     @Pattern(regexp = "([A-Za-z0-9]){4,20}")

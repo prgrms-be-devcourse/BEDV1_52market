@@ -5,6 +5,7 @@ import javassist.bytecode.DuplicateMemberException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import prgrms.al.back.user.dto.UserDeleteResponse;
 import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.service.UserServiceImpl;
 
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) throws NotFoundException{
+    public ResponseEntity<UserDeleteResponse> deleteUser(@PathVariable Long id) throws NotFoundException{
         return ResponseEntity.ok(service.deleteUser(id));
     }
 
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody @Valid UserDto userDto){
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody @Valid UserDto userDto) throws NotFoundException{
         return ResponseEntity.ok(service.updatedUser(userDto));
     }
 }
