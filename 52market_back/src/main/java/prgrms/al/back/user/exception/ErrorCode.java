@@ -16,7 +16,9 @@ public enum ErrorCode {
     NOT_FOUND_USER(400, "U003", "User is not exists"),
     LOGIN_INPUT_INVALID(400, "U004", "Login input is invalid"),
     LOCATION_INPUT_INVALID(400, "U005", "Location input is invalid"),
-    PASSWORD_INPUT_INVALID(400, "U006", "Password input is invalid")
+    PASSWORD_INPUT_INVALID(400, "U006", "Password input is invalid"),
+
+    NOT_FOUND_LETTER(400, "L001", "Letter is not exists")
     ;
 
     private final String code;
