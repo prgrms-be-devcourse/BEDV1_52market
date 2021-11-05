@@ -25,6 +25,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
     private final ProductConvertor productConvertor;
+    private final ImageService imageService;
 
     public void createProduct(ProductRequest productRequest) {
 
@@ -33,8 +34,14 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
         Product product = productRequest.toEntity(user);
-
         productRepository.save(product);
+        productRepository.flush();
+
+        //  이미지 저장
+        for(String url : productRequest.getUrlList()){
+            imageService.saveImage(product,url);
+        }
+
     }
 
     public ProductSearchResponse findById(Long productId) {

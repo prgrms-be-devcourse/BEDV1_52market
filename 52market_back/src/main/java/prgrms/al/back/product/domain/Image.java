@@ -23,9 +23,15 @@ public class Image {
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
-    @Builder
-    public Image(String url, Product product){
+    private void setProduct(Product product){
         this.product = product;
-        this.url = url;
+        product.getPhotos().add(this);
     }
+
+    @Builder
+    public Image(Product product,String url){
+        this.url = url;
+        setProduct(product);
+    }
+
 }

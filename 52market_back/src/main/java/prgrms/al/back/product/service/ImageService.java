@@ -17,8 +17,7 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
     private final ProductRepository productRepository;
-    public void saveImage(Long productId, String url){
-        Product product = productRepository.findById(productId).get();
+    public void saveImage(Product product, String url){
         Image image = Image.builder()
                 .product(product)
                 .url(url)

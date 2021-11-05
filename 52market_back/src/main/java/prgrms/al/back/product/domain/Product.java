@@ -8,6 +8,9 @@ import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.user.domain.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "product")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,6 +37,8 @@ public class Product {
     @Column(name = "total_attention")
     private int totalAttention;
 
+    @OneToMany(mappedBy = "product")
+    private List<Image> photos = new ArrayList<>();
 
     public Product(String title, String content, Long price, Location location) {
         this.title = title;
@@ -61,4 +66,5 @@ public class Product {
         totalAttention += 1;
         return totalAttention;
     }
+
 }

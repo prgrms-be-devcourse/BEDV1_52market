@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.Rollback;
 import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.convertor.ProductConvertor;
 import prgrms.al.back.product.domain.Product;
@@ -42,13 +43,14 @@ class ProductServiceTest {
     ProductService productService;
 
     @Test
-    @DisplayName("상품을 잘 등록하는지")
+    @DisplayName("상품을 잘 등록하는지, 이미지 잘저장하는지")
     void createProduct() {
         // TODO: 2021/10/26 어떻게 검증해야 할까요??
         List<Product> list = new ArrayList<>();
         when(userRepository.findByNickname("tester")).thenReturn((Optional.of(User.builder()
                 .nickname("tester")
                 .build())));
+
 
         ProductRequest productRequest = ProductRequest.builder()
                 .title("맥북 팝니다.")
@@ -78,4 +80,5 @@ class ProductServiceTest {
         // then
         assertThat(result.size()).isEqualTo(3);
     }
+
 }
