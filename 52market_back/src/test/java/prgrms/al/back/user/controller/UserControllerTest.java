@@ -21,7 +21,7 @@ import prgrms.al.back.user.service.UserService;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -90,9 +90,96 @@ class UserControllerTest {
                 .andDo(print())
                 .andDo(document("user-save",
                         requestFields(
-                                fieldWithPath("userId").type(JsonFieldType.NULL).description("userId"),
+                                fieldWithPath("id").type(JsonFieldType.NULL).description("id"),
                                 fieldWithPath("name").type(JsonFieldType.STRING).description("name"),
-                                fieldWithPath("nickName").type(JsonFieldType.STRING).description("nick_name"),
+                                fieldWithPath("nickname").type(JsonFieldType.STRING).description("nickname"),
+                                fieldWithPath("password").type(JsonFieldType.STRING).description("password"),
+                                fieldWithPath("location").type(JsonFieldType.STRING).description("location"),
+                                fieldWithPath("mannerTemperature").type(JsonFieldType.NUMBER).description("mannerTemperature"),
+                                fieldWithPath("createdAt").type(JsonFieldType.NULL).description("createAt"),
+                                fieldWithPath("attentions").type(JsonFieldType.NULL).description("attentions"),
+                                fieldWithPath("products").type(JsonFieldType.NULL).description("products")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("id"),
+                                fieldWithPath("name").type(JsonFieldType.STRING).description("name"),
+                                fieldWithPath("nickname").type(JsonFieldType.STRING).description("nickname"),
+                                fieldWithPath("password").type(JsonFieldType.STRING).description("password"),
+                                fieldWithPath("location").type(JsonFieldType.STRING).description("location"),
+                                fieldWithPath("mannerTemperature").type(JsonFieldType.NUMBER).description("mannerTemperature"),
+                                fieldWithPath("createdAt").type(JsonFieldType.STRING).description("createAt"),
+                                fieldWithPath("attentions").type(JsonFieldType.NULL).description("attentions"),
+                                fieldWithPath("products").type(JsonFieldType.NULL).description("products")
+                        )));
+    }
+
+    @Test
+    @DisplayName("readUserTest")
+    public void readUser() throws Exception {
+        //given
+        UserDto userDto = UserDto.builder()
+                .name("Sangsun")
+                .nickname("soon12")
+                .password("teSt13!@45")
+                .location("incheon")
+                .build();
+
+        service.createUser(userDto);
+
+        //when //then
+        mockMvc.perform(get("/api/users/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("user-read",
+                        responseFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("id"),
+                                fieldWithPath("name").type(JsonFieldType.STRING).description("name"),
+                                fieldWithPath("nickname").type(JsonFieldType.STRING).description("nickname"),
+                                fieldWithPath("password").type(JsonFieldType.STRING).description("password"),
+                                fieldWithPath("location").type(JsonFieldType.STRING).description("location"),
+                                fieldWithPath("mannerTemperature").type(JsonFieldType.NUMBER).description("mannerTemperature"),
+                                fieldWithPath("createdAt").type(JsonFieldType.STRING).description("createAt"),
+                                fieldWithPath("attentions").type(JsonFieldType.NULL).description("attentions"),
+                                fieldWithPath("products").type(JsonFieldType.NULL).description("products")
+                        )));
+    }
+
+    @Test
+    @DisplayName("updateUserTest")
+    public void updateUser() throws Exception {
+        //given
+        UserDto userDto = UserDto.builder()
+                .name("Sangsun")
+                .nickname("soon12")
+                .password("teSt13!@45")
+                .location("incheon")
+                .build();
+
+        service.createUser(userDto);
+
+        //when
+        UserDto updateDto = UserDto.builder()
+                .id(1L)
+                .name("Sangsun")
+                .nickname("update12")
+                .password("upDated12!@")
+                .location("seoul")
+                .build();
+
+        // then
+        mockMvc.perform(post("/api/users/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateDto))
+                )
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("user-update",
+                        requestFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("id"),
+                                fieldWithPath("name").type(JsonFieldType.STRING).description("name"),
+                                fieldWithPath("nickname").type(JsonFieldType.STRING).description("nickname"),
                                 fieldWithPath("password").type(JsonFieldType.STRING).description("password"),
                                 fieldWithPath("location").type(JsonFieldType.STRING).description("location"),
                                 fieldWithPath("mannerTemperature").type(JsonFieldType.NUMBER).description("mannerTemperature"),
@@ -102,35 +189,40 @@ class UserControllerTest {
 
                         ),
                         responseFields(
-                                fieldWithPath("userId").type(JsonFieldType.NUMBER).description("userId"),
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("id"),
                                 fieldWithPath("name").type(JsonFieldType.STRING).description("name"),
-                                fieldWithPath("nickName").type(JsonFieldType.STRING).description("nick_name"),
+                                fieldWithPath("nickname").type(JsonFieldType.STRING).description("nickname"),
                                 fieldWithPath("password").type(JsonFieldType.STRING).description("password"),
                                 fieldWithPath("location").type(JsonFieldType.STRING).description("location"),
                                 fieldWithPath("mannerTemperature").type(JsonFieldType.NUMBER).description("mannerTemperature"),
                                 fieldWithPath("createdAt").type(JsonFieldType.STRING).description("createAt"),
-                                fieldWithPath("attentions").type(JsonFieldType.ARRAY).description("attentions"),
-                                fieldWithPath("products").type(JsonFieldType.ARRAY).description("products")
+                                fieldWithPath("attentions").type(JsonFieldType.NULL).description("attentions"),
+                                fieldWithPath("products").type(JsonFieldType.NULL).description("products")
                         )));
     }
 
-
     @Test
-    @DisplayName("유저 생성 실패")
-    public void failCreateTest() throws Exception {
+    @DisplayName("deleteUserTest")
+    public void deleteUser() throws Exception {
         //given
-        UserDto failUserDto = UserDto.builder()
-                .name("Sa")
-                .nickname("fai")
-                .password("failpassword")
+        UserDto userDto = UserDto.builder()
+                .name("Sangsun")
+                .nickname("soon12")
+                .password("teSt13!@45")
                 .location("incheon")
                 .build();
 
+        service.createUser(userDto);
+
         //when //then
-        mockMvc.perform(post("/api/users")
+        mockMvc.perform(delete("/api/users/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(failUserDto))
                 )
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("user-delete",
+                        responseFields(
+                               fieldWithPath("message").type(JsonFieldType.STRING).description("message")
+                        )));
     }
 }

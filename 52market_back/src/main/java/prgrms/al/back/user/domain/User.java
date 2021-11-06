@@ -1,7 +1,9 @@
 package prgrms.al.back.user.domain;
 
 import lombok.*;
+import org.springframework.util.Assert;
 import prgrms.al.back.attention.domain.Attention;
+import prgrms.al.back.letter.domain.Letter;
 import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.domain.Product;
 
@@ -14,8 +16,7 @@ import java.util.List;
 
 @Getter
 @Entity(name = "user")
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,12 +53,21 @@ public class User {
     @ManyToOne
     private Location location;
 
+    @OneToMany(mappedBy = "sender")
+    private List<Letter> sendLetters = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Letter> receiveLetters = new ArrayList<>();
+
     @Builder
     public User(String name, String nickname, String password, Location location) {
+        Assert.hasText(name, "Name is empty");
+        Assert.hasText(nickname, "Nickname is empty");
+        Assert.hasText(password, "Password is empty");
+
         this.name = name;
         this.nickname = nickname;
         this.password = password;
-        this.location = location;
         this.mannerTemperature = 36.5;
         this.createdAt = LocalDateTime.now();
     }
