@@ -117,8 +117,8 @@ class LetterControllerTest {
     }
 
     @Test
-    @DisplayName("createUserTest")
-    public void createUser() throws Exception {
+    @DisplayName("createLetterTest")
+    public void createLetter() throws Exception {
         //given
         LetterCreateRequest letterCreateRequest = LetterCreateRequest.builder()
                 .body("testBody")
@@ -152,8 +152,8 @@ class LetterControllerTest {
 
 
     @Test
-    @DisplayName("deleteUserTest")
-    public void deleteUser() throws Exception {
+    @DisplayName("deleteLetterTest")
+    public void deleteLetter() throws Exception {
         //given
         LetterCreateRequest letterCreateRequest = LetterCreateRequest.builder()
                 .body("testBody")
@@ -177,8 +177,8 @@ class LetterControllerTest {
 
 
     @Test
-    @DisplayName("readUserTest")
-    public void readUser() throws Exception {
+    @DisplayName("readLetterTest")
+    public void readLetter() throws Exception {
         //given
         LetterCreateRequest letterCreateRequest = LetterCreateRequest.builder()
                 .body("testBody")
