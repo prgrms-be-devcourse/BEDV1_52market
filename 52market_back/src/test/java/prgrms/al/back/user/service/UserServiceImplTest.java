@@ -72,7 +72,7 @@ class UserServiceImplTest {
         UserDto createdUserDto = service.createUser(userDto);
 
         //when
-        UserDto findEntity = service.findById(createdUserDto.getUserId());
+        UserDto findEntity = service.findById(createdUserDto.getId());
 
         //then
         assertThat(findEntity.getNickname(), is(createdUserDto.getNickname()));
@@ -98,13 +98,15 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("유저 업데이트")
-    public void updateTest() throws DuplicateMemberException {
+    public void updateTest() throws DuplicateMemberException, NotFoundException {
         //given
         UserDto createdUserDto = service.createUser(userDto);
         UserDto forUpdateDto = UserDto.builder()
-                .userId(createdUserDto.getUserId())
-                .name("update")
-                .nickname("updated")
+                .id(createdUserDto.getId())
+                .name("Sangsun")
+                .nickname("update12")
+                .password("upDated12!@")
+                .location("incheon")
                 .build();
 
         //when
@@ -114,7 +116,7 @@ class UserServiceImplTest {
         assertAll(
                 () -> assertThat(updatedDto.getName(), is(forUpdateDto.getName())),
                 () -> assertThat(updatedDto.getNickname(), is(forUpdateDto.getNickname())),
-                () -> assertThat(updatedDto.getLocation(), is("Incheon"))
+                () -> assertThat(updatedDto.getLocation(), is("incheon"))
         );
     }
 }

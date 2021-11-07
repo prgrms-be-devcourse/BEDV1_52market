@@ -8,15 +8,13 @@ import prgrms.al.back.user.dto.UserDto;
 public class UserConvertor {
     public UserDto toDto(User user) {
         return UserDto.builder()
-                .userId(user.getId())
+                .id(user.getId())
                 .name(user.getName())
                 .nickname(user.getNickname())
                 .password(user.getPassword())
                 .location(user.getLocation().getName())
                 .mannerTemperature(user.getMannerTemperature())
                 .createdAt(user.getCreatedAt())
-                .attentions(user.getAttentions())
-                .products(user.getProducts())
                 .build();
     }
 

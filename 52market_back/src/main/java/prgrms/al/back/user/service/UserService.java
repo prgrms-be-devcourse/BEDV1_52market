@@ -2,6 +2,7 @@ package prgrms.al.back.user.service;
 
 import javassist.NotFoundException;
 import javassist.bytecode.DuplicateMemberException;
+import prgrms.al.back.user.dto.UserDeleteResponse;
 import prgrms.al.back.user.dto.UserDto;
 
 public interface UserService {
@@ -10,7 +11,7 @@ public interface UserService {
 
     public UserDto createUser(UserDto userDto) throws DuplicateMemberException;
 
-    public UserDto updatedUser(UserDto userDto);
+    public UserDto updatedUser(UserDto userDto) throws NotFoundException;
 
-    public String deleteUser(Long id);
+    public UserDeleteResponse deleteUser(Long id) throws NotFoundException;
 }
