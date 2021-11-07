@@ -96,7 +96,7 @@ class AttentionServiceTest {
                 .build();
 
 
-        productService.createProduct(productRequest);
+//        productService.createProduct(productRequest);
 
         Long userId = userRepository.findByNickname(userDto.getNickname()).get().getId();
 //        Long userId = userRepository.findAll().get(0).getUserId();

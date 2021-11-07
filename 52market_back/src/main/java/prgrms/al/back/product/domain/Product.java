@@ -34,6 +34,8 @@ public class Product {
     @Column(name = "total_attention")
     private int totalAttention;
 
+    @Enumerated(EnumType.STRING)
+    private ProductStatus productStatus = ProductStatus.SELLING;
 
     public Product(String title, String content, Long price, Location location) {
         this.title = title;
@@ -50,6 +52,14 @@ public class Product {
         this.location = location;
         this.createdAt = LocalDateTime.now();
         this.totalAttention = totalAttention;
+    }
+
+    public void reserve() {
+        this.productStatus = ProductStatus.RESERVED;
+    }
+
+    public void sold() {
+        this.productStatus = ProductStatus.SOLD;
     }
 
     public void setOwner(User user) {

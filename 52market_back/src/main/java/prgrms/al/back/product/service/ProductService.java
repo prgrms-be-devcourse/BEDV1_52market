@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.product.convertor.ProductConvertor;
 import prgrms.al.back.product.domain.Product;
+import prgrms.al.back.product.dto.ProductCreateRequest;
 import prgrms.al.back.product.dto.ProductRequest;
 import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.product.repository.ProductRepository;
@@ -26,15 +27,16 @@ public class ProductService {
     private final UserRepository userRepository;
     private final ProductConvertor productConvertor;
 
-    public void createProduct(ProductRequest productRequest) {
+    public Long createProduct(ProductCreateRequest productCreateRequest) {
 
-        String nickName = productRequest.getNickname();
-        User user = userRepository.findByNickname(nickName)
+        String nickname = productCreateRequest.getSeller().getNickname();
+        User user = userRepository.findByNickname(nickname)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
-        Product product = productRequest.toEntity(user);
-
+        Product product = productCreateRequest.toEntity(user);
         productRepository.save(product);
+
+        return product.getId();
     }
 
     public ProductSearchResponse findById(Long productId) {
@@ -72,6 +74,12 @@ public class ProductService {
                 .totalAttention(product.getTotalAttention())
                 .build())
             .collect(toList());
+    }
+
+    public void reserve(Long productId) {
+        Product product = productRepository.findById(productId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
+        product.reserve();
     }
 
 
