@@ -26,8 +26,8 @@ public class AttentionController {
         return ResponseEntity.ok(attentionService.delete(attentionId));
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<ProductSearchResponse>> findProductsByUserId(@PathVariable Long userId){
-        return ResponseEntity.ok(attentionService.getAttentionProducts(userId));
-    }
+//    @GetMapping("/user/{id}")
+//    public ResponseEntity<List<ProductSearchResponse>> findProductsByUserId(@PathVariable Long userId){
+//        return ResponseEntity.ok(attentionService.getAttentionProducts(userId));
+//    }
 }

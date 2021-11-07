@@ -28,6 +28,9 @@ import prgrms.al.back.product.controller.ProductController;
 import prgrms.al.back.product.dto.ProductRequest;
 import prgrms.al.back.product.service.ProductService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @ExtendWith(RestDocumentationExtension.class)
 @WebMvcTest(ProductController.class)
 class ProductControllerTest {
@@ -58,12 +61,15 @@ class ProductControllerTest {
 
 
 
-        ProductRequest productRequest = ProductRequest.builder()
-            .title("맥북 팔아요")
-            .content("싼 가격에 팔겠습니다.")
-            .price(1_000_000L)
-            .nickname("tester")
-            .build();
+        List<String> urls = new ArrayList<>();
+        urls.add("123123123");
+        urls.add("23234234234");
+
+        ProductRequest productRequest = new ProductRequest(
+                "맥북 팝니다",
+                "싸게 드려요, 연락주세요",
+                1_000_000L,
+                "soon12",urls);
 
         mockMvc.perform(post("/api/products")
                 .contentType(MediaType.APPLICATION_JSON)

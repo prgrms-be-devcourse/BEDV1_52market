@@ -14,7 +14,6 @@ import prgrms.al.back.product.dto.ProductRequest;
 import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.product.repository.ProductRepository;
 import prgrms.al.back.user.domain.User;
-import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.repository.UserRepository;
 
 @Service
@@ -41,7 +40,6 @@ public class ProductService {
         for(String url : productRequest.getUrlList()){
             imageService.saveImage(product,url);
         }
-
     }
 
     public ProductSearchResponse findById(Long productId) {
