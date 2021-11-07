@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.location.service.LocationService;
 import prgrms.al.back.product.dto.ProductSearchResponse;
+import prgrms.al.back.product.service.ImageService;
 import prgrms.al.back.product.service.ProductService;
 import prgrms.al.back.product.dto.ProductRequest;
 
@@ -24,6 +25,7 @@ public class ProductController {
 
     private final ProductService productService;
     private final LocationService locationService;
+    private final ImageService imageService;
 
     @PostMapping
     public ResponseEntity<HttpStatus> createProduct(@RequestBody ProductRequest productRequest) {

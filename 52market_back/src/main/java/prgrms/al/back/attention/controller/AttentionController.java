@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/attention")
 @RequiredArgsConstructor
 public class AttentionController {
-    private AttentionService attentionService;
+    private final AttentionService attentionService;
 
     @PostMapping
     public ResponseEntity<Long> save(@RequestBody AttentionSaveRequestDto attentionSaveRequestDto) throws NotFoundException {

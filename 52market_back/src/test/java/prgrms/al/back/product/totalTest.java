@@ -1,50 +1,35 @@
-package prgrms.al.back.attention.service;
+package prgrms.al.back.product;
 
-import javassist.NotFoundException;
 import javassist.bytecode.DuplicateMemberException;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import prgrms.al.back.attention.domain.Attention;
-import prgrms.al.back.attention.dto.AttentionSaveRequestDto;
-import prgrms.al.back.attention.repository.AttentionRepository;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.Rollback;
 import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.location.domain.NearAreaStepOne;
 import prgrms.al.back.location.repository.LocationRepository;
 import prgrms.al.back.location.repository.NearAreaStepOneRepository;
+import prgrms.al.back.product.convertor.ProductConvertor;
+import prgrms.al.back.product.domain.Product;
 import prgrms.al.back.product.dto.ProductRequest;
-import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.product.repository.ProductRepository;
 import prgrms.al.back.product.service.ProductService;
+import prgrms.al.back.user.domain.User;
 import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.repository.UserRepository;
 import prgrms.al.back.user.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Slf4j
-@Service
+import static org.mockito.ArgumentMatchers.refEq;
+import static org.mockito.Mockito.when;
+
 @SpringBootTest
-class AttentionServiceTest {
-
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    ProductService productService;
-
-    @Autowired
-    AttentionService attentionService;
-
-    @Autowired
-    LocationRepository locationRepository;
-
-    @Autowired
-    NearAreaStepOneRepository oneRepository;
+public class totalTest {
 
     @Autowired
     UserRepository userRepository;
@@ -53,11 +38,24 @@ class AttentionServiceTest {
     ProductRepository productRepository;
 
     @Autowired
-    AttentionRepository attentionRepository;
+    ProductConvertor productConvertor;
 
-    @BeforeEach
-    @Transactional
-    public void setTest() {
+    @Autowired
+    ProductService productService;
+
+    @Autowired
+    LocationRepository locationRepository;
+
+    @Autowired
+    NearAreaStepOneRepository oneRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Test
+    @DisplayName("상품을 잘 등록하는지, 이미지 잘저장하는지")
+    @Rollback(value = false)
+    void createProduct() throws DuplicateMemberException {
         Location location1 = Location.builder()
                 .name("incheon")
                 .n(12.0)
@@ -79,11 +77,7 @@ class AttentionServiceTest {
                 .build();
 
         oneRepository.save(one);
-    }
 
-    @Transactional
-    @Test
-    public void test() throws NotFoundException, DuplicateMemberException {
         UserDto userDto = UserDto.builder()
                 .name("Sangsun")
                 .nickname("soon12")
@@ -93,36 +87,20 @@ class AttentionServiceTest {
 
         userService.createUser(userDto);
 
+        List<String> urls = new ArrayList<>();
+        urls.add("123123123");
+        urls.add("23234234234");
+
         ProductRequest productRequest = ProductRequest.builder()
                 .title("맥북 팝니다.")
                 .content("싸게 드려요, 연락주세요")
                 .price(1_000_000L)
                 .nickname("soon12")
+                .urlList(urls)
                 .build();
-
 
         productService.createProduct(productRequest);
 
-        Long userId = userRepository.findByNickname(userDto.getNickname()).get().getId();
-        Long productId = productRepository.findAll().get(0).getId();
-        System.out.println(productId);
-
-
-        attentionService.save(AttentionSaveRequestDto.builder()
-                .productId(productId)
-                .userId(userId)
-                .build());
-
-
-        System.out.println(productService.findById(productId).getTotalAttention());
-
-        //Attention attention = attentionRepository.findById(1L).get();
-        //System.out.println(attention.getProduct().getTitle());
-        //attentionRepository.findAll();
-        //List<Attention> list = attentionRepository.findAll();
-        //System.out.println(list.get(0).getProduct().getTitle());
-        // 수정 해야할것
-        //List<ProductSearchResponse> attentionProducts = attentionService.getAttentionProducts(userId);
-        //System.out.println(attentionProducts.get(0).getTitle());
     }
+
 }
