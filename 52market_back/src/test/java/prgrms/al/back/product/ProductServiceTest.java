@@ -50,13 +50,25 @@ class ProductServiceTest {
     @DisplayName("상품을 잘 등록하는지, 이미지 잘저장하는지")
     void createProduct() {
         // TODO: 2021/10/26 어떻게 검증해야 할까요??
-        List<Product> list = new ArrayList<>();
         when(userRepository.findByNickname("tester")).thenReturn((Optional.of(User.builder()
                 .nickname("tester")
                 .build())));
 
         SellerDto seller = new SellerDto("tester", "tester_nickname", "이문동", 36.5);
 
+<<<<<<< HEAD
+        List<String> urls = new ArrayList<>();
+        urls.add("123123123");
+        urls.add("23234234234");
+
+        ProductRequest productRequest = new ProductRequest(
+                "맥북 팝니다",
+                "싸게 드려요, 연락주세요",
+                1_000_000L,
+                "tester",
+                urls);
+        productService.createProduct(productRequest);
+=======
         ProductCreateRequest request = ProductCreateRequest.builder()
             .title("test title")
             .content("test content")
@@ -67,6 +79,7 @@ class ProductServiceTest {
             .build();
 
         productService.createProduct(request);
+>>>>>>> develop
     }
 
     @Test

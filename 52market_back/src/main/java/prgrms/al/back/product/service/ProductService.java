@@ -33,8 +33,18 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
         Product product = productRequest.toEntity(user);
+<<<<<<< HEAD
+        productRepository.save(product);
+        productRepository.flush();
+
+        //  이미지 저장
+        for(String url : productRequest.getUrlList()){
+            imageService.saveImage(product,url);
+        }
+=======
 
         productRepository.save(product);
+>>>>>>> develop
     }
 
     public ProductSearchResponse findById(Long productId) {

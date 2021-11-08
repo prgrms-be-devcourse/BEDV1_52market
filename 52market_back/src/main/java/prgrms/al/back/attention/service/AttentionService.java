@@ -46,8 +46,8 @@ public class AttentionService {
         return attentionId;
     }
 
-    public List<ProductSearchResponse> getAttentionProducts(Long userId) {
-        return productConvertor.toListDto(attentionRepository.findAttentionProducts(userId));
-    }
+//    public List<ProductSearchResponse> getAttentionProducts(Long userId) {
+//        return productConvertor.toListDto(attentionRepository.findAttentionProducts(userId));
+//    }
 
 }

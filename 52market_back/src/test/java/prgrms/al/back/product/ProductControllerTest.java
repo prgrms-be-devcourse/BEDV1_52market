@@ -40,6 +40,9 @@ import prgrms.al.back.product.dto.ProductCreateRequest;
 import prgrms.al.back.product.service.ProductService;
 import prgrms.al.back.user.dto.SellerDto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @ExtendWith(RestDocumentationExtension.class)
 @WebMvcTest(ProductController.class)
 class ProductControllerTest {
@@ -76,6 +79,17 @@ class ProductControllerTest {
 
         SellerDto seller = new SellerDto("tester", "tester_nickname", "이문동", 36.5);
 
+<<<<<<< HEAD
+        List<String> urls = new ArrayList<>();
+        urls.add("123123123");
+        urls.add("23234234234");
+
+        ProductRequest productRequest = new ProductRequest(
+                "맥북 팝니다",
+                "싸게 드려요, 연락주세요",
+                1_000_000L,
+                "soon12",urls);
+=======
         ProductCreateRequest request = ProductCreateRequest.builder()
             .title("test title")
             .content("test content")
@@ -84,6 +98,7 @@ class ProductControllerTest {
             .seller(seller)
             .imageUrls(Arrays.asList("sample.image.url1", "sample.image.url2"))
             .build();
+>>>>>>> develop
 
         mockMvc.perform(post("/api/products")
                 .characterEncoding(StandardCharsets.UTF_8)

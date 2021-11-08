@@ -24,6 +24,7 @@ import prgrms.al.back.user.dto.UserDto;
 import prgrms.al.back.user.repository.UserRepository;
 import prgrms.al.back.user.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -93,12 +94,15 @@ class AttentionServiceTest {
 
         userService.createUser(userDto);
 
-        ProductRequest productRequest = ProductRequest.builder()
-                .title("맥북 팝니다.")
-                .content("싸게 드려요, 연락주세요")
-                .price(1_000_000L)
-                .nickname("soon12")
-                .build();
+        List<String> urls = new ArrayList<>();
+        urls.add("123123123");
+        urls.add("23234234234");
+
+        ProductRequest productRequest = new ProductRequest(
+                "맥북 팝니다",
+                "싸게 드려요, 연락주세요",
+                1_000_000L,
+                "soon12",urls);
 
 
 //        productService.createProduct(productRequest);
