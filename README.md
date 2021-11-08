@@ -31,9 +31,9 @@
 ### ERD
 <img width="726" alt="스크린샷 2021-11-08 오후 1 47 20" src="https://user-images.githubusercontent.com/60605048/140695839-2725e7d4-bd6b-44ae-bde1-6b96806ff5c7.png">
 
-### Api (https://backend-devcourse.notion.site/Api-01ae2518a34d4f1a93dd4b37c64499b1)
+### Api [https://backend-devcourse.notion.site/Api-01ae2518a34d4f1a93dd4b37c64499b1]
 
 ### 프로젝트 회고
-- 박상순(https://slowly-steadily.tistory.com/entry/협업-프로젝트-회고)
-- 정수현(https://wisdom-and-record.tistory.com/127)
-- 전민규(https://phase-drip-eab.notion.site/e9aad9d9ce994fe3b835bde209295ed7)
+- 박상순[https://slowly-steadily.tistory.com/entry/협업-프로젝트-회고]
+- 정수현[https://wisdom-and-record.tistory.com/127]
+- 전민규[https://phase-drip-eab.notion.site/e9aad9d9ce994fe3b835bde209295ed7]
