@@ -1,6 +1,10 @@
 package prgrms.al.back.product.controller;
 
+import static prgrms.al.back.product.controller.ProductController.*;
+
+import java.net.URI;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,24 +17,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import prgrms.al.back.location.domain.Location;
 import prgrms.al.back.location.service.LocationService;
+import prgrms.al.back.product.dto.ProductCreateRequest;
 import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.product.service.ImageService;
 import prgrms.al.back.product.service.ProductService;
-import prgrms.al.back.product.dto.ProductRequest;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping(PRODUCT_API_URI)
 @RequiredArgsConstructor
 public class ProductController {
+
+    public static final String PRODUCT_API_URI = "/api/products";
 
     private final ProductService productService;
     private final LocationService locationService;
     private final ImageService imageService;
 
     @PostMapping
-    public ResponseEntity<HttpStatus> createProduct(@RequestBody ProductRequest productRequest) {
-        productService.createProduct(productRequest);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<Void> createProduct(@RequestBody @Valid ProductCreateRequest productCreateRequest) {
+        Long productId = productService.createProduct(productCreateRequest);
+        return ResponseEntity.created(URI.create(PRODUCT_API_URI + "/" + productId)).build();
     }
 
     @GetMapping
@@ -56,4 +62,6 @@ public class ProductController {
 
         return new ResponseEntity<>(productSearchResponse, HttpStatus.OK);
     }
+
+
 }

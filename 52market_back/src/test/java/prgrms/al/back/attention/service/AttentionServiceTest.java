@@ -105,7 +105,7 @@ class AttentionServiceTest {
                 "soon12",urls);
 
 
-        productService.createProduct(productRequest);
+//        productService.createProduct(productRequest);
 
         Long userId = userRepository.findByNickname(userDto.getNickname()).get().getId();
         Long productId = productRepository.findAll().get(0).getId();
