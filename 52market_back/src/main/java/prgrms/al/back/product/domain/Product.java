@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import lombok.*;
 import prgrms.al.back.location.domain.Location;
-import prgrms.al.back.product.dto.ProductSearchResponse;
 import prgrms.al.back.user.domain.User;
 
 import java.util.ArrayList;
@@ -40,6 +39,9 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Image> photos = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private ProductStatus productStatus = ProductStatus.SELLING;
+
     public Product(String title, String content, Long price, Location location) {
         this.title = title;
         this.content = content;
@@ -57,6 +59,14 @@ public class Product {
         this.totalAttention = totalAttention;
     }
 
+    public void reserve() {
+        this.productStatus = ProductStatus.RESERVED;
+    }
+
+    public void sold() {
+        this.productStatus = ProductStatus.SOLD;
+    }
+
     public void setOwner(User user) {
         createdBy = user;
         user.getProducts().add(this);
@@ -66,5 +76,4 @@ public class Product {
         totalAttention += 1;
         return totalAttention;
     }
-
 }
