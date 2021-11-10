@@ -26,25 +26,20 @@ public class ProductService {
     private final ProductConvertor productConvertor;
     private final ImageService imageService;
 
-    public Long createProduct(ProductCreateRequest productCreateRequest) {
+    public Long createProduct(ProductCreateRequest productRequest) {
 
-        String nickname = productCreateRequest.getSeller().getNickname();
+        String nickname = productRequest.getSeller().getNickname();
         User user = userRepository.findByNickname(nickname)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
         Product product = productRequest.toEntity(user);
-<<<<<<< HEAD
         productRepository.save(product);
-        productRepository.flush();
 
         //  이미지 저장
-        for(String url : productRequest.getUrlList()){
+        for(String url : productRequest.getImageUrls()){
             imageService.saveImage(product,url);
         }
-=======
-
-        productRepository.save(product);
->>>>>>> develop
+        return product.getId();
     }
 
     public ProductSearchResponse findById(Long productId) {

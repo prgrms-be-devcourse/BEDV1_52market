@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface AttentionRepository extends JpaRepository<Attention, Long> {
 
-//    @Query("SELECT attention.product FROM attention JOIN FETCH attention.product WHERE attention.user.id= :userId")
-//    List<Product> findAttentionProducts(@Param("userId") Long userId);
+    @Query("SELECT p FROM attention a JOIN a.product p WHERE a.user.id= :userId")
+    List<Product> findAttentionProducts(@Param("userId") Long userId);
 }
 // 쿼리의 네이티브 옵션을 트루로 줘야한다. 사용할때 실패했는지 안했는지 알수있다.
